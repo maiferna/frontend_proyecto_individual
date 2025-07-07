@@ -1,0 +1,33 @@
+* {
+    font-family: 'Lato', sans-serif;
+}
+
+.btn-green {
+    background-color: rgba(66,118,109,255);
+    color: white;
+}
+
+.btn-green-border {
+    border: 1px solid rgba(66,118,109,255);
+}
+
+.btn-green-border:hover {
+    border: 1px solid rgba(66,118,109,255);
+}
+
+.btn-green:hover {
+    background-color: white;
+    border: 1px solid rgba(66,118,109,255);
+}
+
+.width-container {
+    width: 60vh;
+}
+
+.google-img {
+    width: 10%;
+}
+
+/* @media (min-width: 992px) {
+    
+} */
