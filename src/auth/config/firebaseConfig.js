@@ -7,12 +7,12 @@ import { getFirestore } from 'firebase/firestore';
 
 // Configuración de la web app de Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyAGTTvEgqGE9qE7pubWENFH5larDBcejsg",
-  authDomain: "proyecto-personal-b377d.firebaseapp.com",
-  projectId: "proyecto-personal-b377d",
-  storageBucket: "proyecto-personal-b377d.firebasestorage.app",
-  messagingSenderId: "17483122664",
-  appId: "1:17483122664:web:9f302f5a2f00c9dff4465d"
+  apiKey: `${import.meta.env.API_KEY}`,
+  authDomain: `${import.meta.env.AUTH_DOMAIN}`,
+  projectId: `${import.meta.env.PROJECT_ID}`,
+  storageBucket: `${import.meta.env.STORAGE_BUCKET}`,
+  messagingSenderId: `${import.meta.env.MESSAGING_SENDER_ID}`,
+  appId: `${import.meta.env.APP_ID}`
 };
 
 // Inicializar Firebase con las credenciales del proyecto
