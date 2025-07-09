@@ -1,47 +1,22 @@
 
+// import { useAuth } from '../../auth/context/AuthContext';
 import { GridRecipes } from '../../components/GridRecipes'
-import { DetailContainer } from '../components/DetailContainer'
+import { useFetch } from '../../hooks/useFetch';
+
 
 export const FavoriteRecipes = () => {
+  const urlBase = import.meta.env.VITE_API_URL_BASE;
+  // const {user} = useAuth();
+  // const uid = user.uid;
+  const uid = 'F9O6ofjRDNR5s9E3BFvxEdIdPXF3'
 
-  const recipes = [{
-    id: 1,
-    name: "ensalada cesar",
-    ingredients: [
-      {
-        name: "lechuga",
-        quantity: "100gr",
-        id: 1
-      },
-    ],
-    image_url: "https://centenario.toque.com.ar/sistema/uploads/1600/articulos/684371415594.jpg",
-    difficulty: "facil",
-    time: "10min",
-    category: [
-      "ensaladas"
-    ],
-    intolerance: [],
-    steps: "paso1"
-  },
-  {
-    id: 2,
-    name: "tortilla",
-    ingredients: [
-      {
-        name: "patata",
-        quantity: "100gr",
-        id: 2
-      }
-    ],
-    image_url: "https://centenario.toque.com.ar/sistema/uploads/1600/articulos/684371415594.jpg",
-    difficulty: "facil",
-    time: "10min",
-    category: [
-      "otros"
-    ],
-    intolerance: [],
-    steps: "paso1"
-  }]
+  const { data, loading, error } = useFetch(`${urlBase}favorite/user/${uid}`, {
+    method: 'GET'
+  })
+
+  console.log('RECETAS', data)
+  // Para no romper el componente cuando favoritos es undefined. Valor por defecto, hace map pero no renderiza nada
+  const recipes = data.favorites || [];
 
   return (
     <GridRecipes recipes={recipes} />

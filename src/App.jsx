@@ -3,14 +3,17 @@ import { BrowserRouter } from 'react-router'
 import './App.css'
 import { AppRoutes } from './routes/AppRoutes'
 import { NavBar } from './ui/NavBar'
+import { AuthProvider } from './auth/context/AuthContext'
 
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <NavBar/>
-        <AppRoutes />
+        <AuthProvider>
+          <NavBar />
+          <AppRoutes />
+        </AuthProvider>
       </BrowserRouter>
     </>
   )

@@ -1,11 +1,33 @@
 import { useState } from "react"
 import { FilterRecipes } from "../components/FilterRecipes"
 import { GridRecipes } from "../components/GridRecipes";
-
+import { useFetch } from "../hooks/useFetch";
 
 
 export const AllRecipes = () => {
-  const recipes = [{
+  const urlBase = import.meta.env.VITE_API_URL_BASE;
+  const [category, setCategory] = useState('todas');
+
+  const { data, loading, error } = useFetch(`${urlBase}recipes`, {
+    method: 'GET'
+  })
+  console.log('RECETAS', data)
+  const recipes = data.recipes || [];
+
+  const filtered = category === 'todas' ? recipes : recipes.filter((recipe) => recipe.category.includes(category));
+
+  return (
+    <section>
+      <FilterRecipes setCategory={setCategory} category={category} />
+      {console.log('CATEGORIA', category)}
+      <GridRecipes recipes={filtered} />
+    </section>
+  )
+}
+
+
+/*
+const recipes = [{
     id: 1,
     name: "ensalada cesar",
     ingredients: [
@@ -43,15 +65,4 @@ export const AllRecipes = () => {
     intolerance: [],
     steps: "paso1"
   }]
-  const [category, setCategory] = useState('todas');
-
-  const filtered = category === 'todas' ? recipes : recipes.filter((recipe) => recipe.category.includes(category));
-
-  return (
-    <section>
-      <FilterRecipes setCategory={setCategory} category={category} />
-      {console.log('CATEGORIA', category)}
-      <GridRecipes recipes={filtered} />
-    </section>
-  )
-}
+*/

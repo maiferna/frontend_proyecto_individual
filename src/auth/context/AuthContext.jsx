@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { auth, db } from '../firebaseConfig';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
+import { auth, db } from '../config/firebaseConfig';
 
 // Crear contexto para poder compartir datos entre componentes
 const AuthContext = createContext();

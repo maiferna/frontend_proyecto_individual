@@ -26,7 +26,6 @@ export const sendUserUid = async () => {
             })
         })
         const data = await response.json();
-        console.log('Data del back:', data);
         localStorage.setItem('token', data.token);
         return data;
     } catch (error) {

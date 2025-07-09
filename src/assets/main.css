@@ -36,11 +36,22 @@
     background-color: #F3EADA;
 }
 
+.bg-green {
+    background-color: rgba(66, 118, 109, 255);
+}
 
+.color-white {
+    color: white;
+}
 /* @media (min-width: 992px) {
     
 } */
 
 div.landing-container {
     height: 100vh;
+}
+
+.recipe-image {
+    width: 100%;
+    max-width: 500px;
 }

@@ -1,5 +1,7 @@
 
-export const FilterRecipes = ({setCategory, category}) => {
+import { useState } from 'react';
+
+export const FilterRecipes = ({ setCategory, category }) => {
     const categories = ['todas', 'ensaladas', 'legumbres', 'otros'];
 
     const handleChange = (ev) => {
@@ -7,7 +9,7 @@ export const FilterRecipes = ({setCategory, category}) => {
     }
 
     return (
-        <section>
+        <section className="p-4">
             <select className="form-select" value={category} onChange={handleChange}>
                 {categories.map((category) => (
                     <option key={category} value={category}>

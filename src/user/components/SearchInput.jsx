@@ -4,46 +4,38 @@ import { CardRecipes } from '../../components/CardRecipes'
 
 
 export const SearchInput = () => {
-    const recipes = [{
-        id: 1,
-        name: "ensalada cesar",
-        ingredients: [
-            {
-                name: "lechuga",
-                quantity: "100gr",
-                id: 1
-            },
-        ],
-        image_url: "https://centenario.toque.com.ar/sistema/uploads/1600/articulos/684371415594.jpg",
-        difficulty: "facil",
-        time: "10min",
-        category: [
-            "ensaladas"
-        ],
-        intolerance: [],
-        steps: "paso1"
-    },
-    {
-        id: 2,
-        name: "tortilla",
-        ingredients: [
-            {
-                name: "patata",
-                quantity: "100gr",
-                id: 2
-            }
-        ],
-        image_url: "https://centenario.toque.com.ar/sistema/uploads/1600/articulos/684371415594.jpg",
-        difficulty: "facil",
-        time: "10min",
-        category: [
-            "otros"
-        ],
-        intolerance: [],
-        steps: "paso1"
-    }]
-
     const [cards, setCards] = useState(false)
+
+    const handleSubmit = (ev) => {
+        ev.preventDefault()
+        setCards(true);
+    }
+
+    return (
+        <>
+            <section className="container-fluid">
+                <form className="d-flex mx-auto p-2" onSubmit={handleSubmit}>
+                    <input className="form-control me-2" type="text" placeholder="Añade un ingrediente" />
+                    <button className="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+                {
+                cards && <div className="row">
+                    {recipes.map(recipe => (
+                        <div key={recipe.id} className="col-4 col-lg-3 mb-4">
+                            <CardRecipes recipe={recipe} />
+                        </div>
+                    ))}
+                </div>
+            }
+            </section>
+        </>
+    )
+}
+
+
+
+
+/* const [cards, setCards] = useState(false)
 
 
 
@@ -68,5 +60,4 @@ export const SearchInput = () => {
                 </div>
             }
         </>
-    )
-}
+    ) */
