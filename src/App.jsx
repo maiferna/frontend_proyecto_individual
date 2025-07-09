@@ -1,35 +1,19 @@
 
-import { BrowserRouter, Route, Routes } from 'react-router'
+import { BrowserRouter } from 'react-router'
 import './App.css'
-import { LoginForm, RegisterForm } from './auth/pages'
-
+import { AppRoutes } from './routes/AppRoutes'
+import { NavBar } from './ui/NavBar'
 
 
 function App() {
-
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route path="/signup" element={<RegisterForm />} />
-          <Route path="/login" element={<LoginForm />} />
-        </Routes>
+        <NavBar/>
+        <AppRoutes />
       </BrowserRouter>
-
     </>
   )
 }
 
 export default App
-
-// FALTAN: login, registro y login con google, revisar vistas y cambiarlas, recuperar contraseña
-
-
-// <AuthProvider>
-//   <BrowserRouter>
-//     <Routes>
-//       <Route path="/register" element={<RegisterForm />} />
-
-//     </Routes>
-//   </BrowserRouter>
-// </AuthProvider>

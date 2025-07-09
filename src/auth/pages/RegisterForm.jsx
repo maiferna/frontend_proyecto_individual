@@ -3,6 +3,7 @@ import { auth, db } from '../config/firebaseConfig';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { setDoc, doc, getDoc } from 'firebase/firestore';
 import { sendUserUid } from '../utils/sendUserUid';
+import { Link } from 'react-router';
 
 // capturamos el correo y la contraseña del usuario, luego usamos Firebase para crear la cuenta y almacenamos el rol del usuario en Firestore
 export const RegisterForm = () => {
@@ -119,7 +120,7 @@ export const RegisterForm = () => {
                   Registrarse con Google
                 </button>
               </div>
-              <p className="text-center">¿Ya tienes cuenta? <a>Inicia sesión</a></p> {/* Redirigir a login */}
+              <p className="text-center">¿Ya tienes cuenta? <Link to="/login" className='color-green'>Inicia sesión</Link></p> {/* Redirigir a login */}
             </form>
           </article>
         </div>

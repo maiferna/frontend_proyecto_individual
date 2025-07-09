@@ -3,21 +3,21 @@
 }
 
 .btn-green {
-    background-color: rgba(66,118,109,255);
+    background-color: rgba(66, 118, 109, 255);
     color: white;
 }
 
 .btn-green-border {
-    border: 1px solid rgba(66,118,109,255);
+    border: 1px solid rgba(66, 118, 109, 255);
 }
 
 .btn-green-border:hover {
-    border: 1px solid rgba(66,118,109,255);
+    border: 1px solid rgba(66, 118, 109, 255);
 }
 
 .btn-green:hover {
     background-color: white;
-    border: 1px solid rgba(66,118,109,255);
+    border: 1px solid rgba(66, 118, 109, 255);
 }
 
 .width-container {
@@ -28,6 +28,19 @@
     width: 10%;
 }
 
+.color-green {
+    color: rgba(66, 118, 109, 255);
+}
+
+.bg-brown {
+    background-color: #F3EADA;
+}
+
+
 /* @media (min-width: 992px) {
     
 } */
+
+div.landing-container {
+    height: 100vh;
+}

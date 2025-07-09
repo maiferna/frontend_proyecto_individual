@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { auth } from '../config/firebaseConfig';
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { sendUserUid } from '../utils/sendUserUid';
+import { Link } from 'react-router';
 
 export const LoginForm = () => {
     const [email, setEmail] = useState('');
@@ -78,7 +79,7 @@ export const LoginForm = () => {
                                 Iniciar sesión con Google
                             </button>
                         </div>
-                        <p className="text-center">¿No tienes cuenta? <a>Regístrate</a></p> {/* Redirigir a signup */}
+                        <p className="text-center">¿No tienes cuenta? <Link to="/signup" className='color-green'>Regístrate</Link></p> {/* Redirigir a signup */}
                     </form>
                 </article>
             </div>
