@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { sendUserUid } from '../utils/sendUserUid';
-import { Link} from 'react-router';
-import { useAuth } from '../context/AuthContext';
+import { Link, useNavigate} from 'react-router';
 import { auth } from '../config/firebaseConfig';
 
 export const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate()
 
     const handleLogin = async (ev) => {
         ev.preventDefault();
@@ -15,6 +15,7 @@ export const LoginForm = () => {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             console.log('El usuario ha iniciado sesión', userCredential.user);
             await sendUserUid();
+            navigate('/search');
         } catch (error) {
             console.log('Error en el inicio de sesión', error.message);
         }
@@ -25,10 +26,11 @@ export const LoginForm = () => {
         const provider = new GoogleAuthProvider();
         try {
             // Abre una ventana emergente para que el usuario se registre con google
-            // El AuthProvider se activa automáticamente (así que no hay que gestional el rol (?))
+            // El AuthProvider se activa automáticamente (así que no hay que gestionar el rol (?))
             const result = await signInWithPopup(auth, provider);
             console.log('El usuario ha iniciado sesión con google')
             await sendUserUid();
+            navigate('/search');
         } catch (error) {
             console.log('Error en el inicio de sesión con google', error.message);
         }
@@ -42,7 +44,7 @@ export const LoginForm = () => {
                 </header>
 
                 <article>
-                    <form onSubmit={handleLogin}>
+                    <form onSubmit={handleLogin} noValidate>
                         <div className="mb-3">
                             <input
                                 type="email"

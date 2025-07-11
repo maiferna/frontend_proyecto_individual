@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 export const FilterRecipes = ({ setCategory, category }) => {
-    const categories = ['todas', 'ensaladas', 'legumbres', 'otros'];
+    const categories = ['todas', 'ensaladas', 'legumbres', 'postre'];
 
     const handleChange = (ev) => {
         setCategory(ev.target.value);

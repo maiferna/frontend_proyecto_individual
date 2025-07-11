@@ -1,25 +1,18 @@
 
-export const fetchCall = async (url, method = "GET", body = {}, header = {}) => {
-  let option;
+export const fetchCall = async (url, options = {}) => {
+  const { method = "GET", body = null, headers = {} } = options;
+  const option = {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      ...headers,
+    },
+  };
 
-  if (method === "POST" || method === "PUT") {
-    option = {
-      method: method,
-      body,
-      headers: {
-        ...header,
-        "Content-Type": "application/json",
-      }
-    };
-  } else if (method === "DELETE" || method === "GET") {
-    option = {
-      method: method,
-      headers: {
-        ...header,
-        "Content-Type": "application/json",
-      }
-    };
+  if (method === "POST" || method === "PUT" || method === 'DELETE') {
+    option.body = body;
   }
+
   try {
     const answer = await fetch(url, option);
     const data = await answer.json();

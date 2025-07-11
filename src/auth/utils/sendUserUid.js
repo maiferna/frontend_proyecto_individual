@@ -1,32 +1,32 @@
 
-import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from '../config/firebaseConfig'
+import { auth} from '../config/firebaseConfig'
+import { fetchCall } from '../../api/fetchCall';
 
 export const sendUserUid = async () => {
+    const urlBase = import.meta.env.VITE_API_URL_BASE;
     const user = auth.currentUser;
+    //console.log('CURRENT USER', auth.currentUser)
     if (!user) return;
     try {
-        // Crea una referencia al documento del usuario dentro de Firestore
-        const userRef = doc(db, 'users', user.uid);
-        // Recupera el snapshot del documento del usuario desde Firestore
-        const userDoc = await getDoc(userRef);
-        // Extrae el campo role y name del documento de Firestore
-        const { role, name } = userDoc.data();
         // Modificar url y meter mi función fetch
-        const response = await fetch('http://localhost:3000/api/v1/auth/sync', {
+        const data = await fetchCall(`${urlBase}auth/sync`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 firebaseUid: user.uid,
-                name,
+                name: user.displayName,
                 email: user.email,
-                role
+                role: 'user'
             })
         })
-        const data = await response.json();
-        localStorage.setItem('token', data.token);
+        if (data.token) {
+            localStorage.setItem('token', data.token);
+        } else {
+            throw ('No se recibió token del backend');
+        }
+        //console.log('TOKEN DEL BACK', data)
         return data;
     } catch (error) {
         console.log({ error });

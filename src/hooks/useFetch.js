@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { fetchCall } from "../api/fetchCall";
 
 
-export const useFetch = (url, options) => {
+export const useFetch = (url, initialOptions) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null)
 
-  const fetchData = async () => {
+  const fetchData = async (options = initialOptions) => {
     try {
         const data = await fetchCall(url, {...options})
         setData(data);
@@ -21,14 +21,15 @@ export const useFetch = (url, options) => {
 
   // Si ejecutaramos una función directamente en el componente, se volverá a ejecutar cada vez que haya un cambio en el estado esto podría provocar bucles infinitos.
   // Para que se ejecute sólo cuando sucede un cambio concreto como cuando cambie un estado del componente, o cuando se carge por primera vez el componente ello utilizamos un useEffect()
-  useEffect(() => {
-    fetchData()
-  }, [])
+  // useEffect(() => {
+  //   fetchData()
+  // }, [])
 
   return {
     data,
     loading,
-    error
+    error,
+    fetchData
   }
 }
 

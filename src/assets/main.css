@@ -43,6 +43,10 @@
 .color-white {
     color: white;
 }
+
+.color-black {
+    color: rgb(8, 77, 59);
+}
 /* @media (min-width: 992px) {
     
 } */
@@ -54,4 +58,8 @@ div.landing-container {
 .recipe-image {
     width: 100%;
     max-width: 500px;
+}
+
+.badge-green {
+    background-color: #91a999;
 }

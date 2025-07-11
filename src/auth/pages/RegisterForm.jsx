@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { auth, db } from '../config/firebaseConfig';
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { setDoc, doc, getDoc } from 'firebase/firestore';
+import { auth } from '../config/firebaseConfig';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from 'firebase/auth';
 import { sendUserUid } from '../utils/sendUserUid';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 // capturamos el correo y la contraseña del usuario, luego usamos Firebase para crear la cuenta y almacenamos el rol del usuario en Firestore
 export const RegisterForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleRegister = async (ev) => {
     ev.preventDefault();
@@ -19,16 +19,21 @@ export const RegisterForm = () => {
       // Usuario registrado
       const user = userCredential.user;
 
+      // opcional: actualizar el displayName del usuario
+        await updateProfile(user, {
+            displayName: name // suponiendo que capturaste un nombre
+        });
       // Se le asigna automáticamente el rol como 'user' al nuevo registro usando setDoc
-      await setDoc(doc(db, 'users', user.uid), {
-        name,
-        email: user.email,
-        role: 'user' // Asignamos el rol "user" al nuevo usuario
-      });
+      // await setDoc(doc(db, 'users', user.uid), {
+      //   name,
+      //   email: user.email,
+      //   role: 'user' // Asignamos el rol "user" al nuevo usuario
+      // });
 
-      console.log('Usuario registrado exitosamente');
-      await sendUserUid();
+      console.log('Usuario registrado exitosamente', user);
+      await sendUserUid(); // sincroniza con MongoDB y guarda el token
       // Redirigir a la correspondiente ruta
+      navigate('/search');
     } catch (error) {
       console.log('Error en el registro', error.message);
     }
@@ -42,24 +47,13 @@ export const RegisterForm = () => {
       // Si el usuario está registrado lo autentica y sino lo registra
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      const userRef = doc(db, 'users', user.uid); // doc crea una referencia de documento, porque setDoc funciona con referencias y no con snapshots
-
-      const userDoc = await getDoc(userRef); // devuelve el snapshot: el estado de un documento o una colección en el momento en que haces la consulta.
-      // exists comprueba si existe o no. Si no existe, guarda en firestore los datos del usuario
-      if (!userDoc.exists()) {
-        await setDoc(userRef, {
-          name: user.displayName,
-          email: user.email,
-          role: 'user',
-        });
-      }
       console.log('Usuario registrado con google')
       await sendUserUid();
+      navigate('/search');
     } catch (error) {
       console.log('Error en el registro', error.message);
     }
   }
-  // Sacar token y pasárselo al back?
   return (
     <>
       <section className="container d-flex justify-content-center align-items-center vh-100">
@@ -69,7 +63,7 @@ export const RegisterForm = () => {
           </header>
 
           <article>
-            <form onSubmit={handleRegister}>
+            <form onSubmit={handleRegister} novalidate>
               <div className="mb-3">
                 <input
                   type="text"

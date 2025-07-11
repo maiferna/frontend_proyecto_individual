@@ -1,14 +1,19 @@
 import { useParams } from "react-router";
 import { useFetch } from "../../hooks/useFetch";
+import { useEffect } from "react";
 
 export const DetailContainer = () => {
   const urlBase = import.meta.env.VITE_API_URL_BASE;
   const { id } = useParams();
 
-  const { data, loading, error } = useFetch(`${urlBase}recipe/${id}`, {
+  const { data, loading, error, fetchData } = useFetch(`${urlBase}recipe/${id}`, {
     method: 'GET'
   })
   console.log('RECETA', data)
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   if (loading) return <p>Cargando receta...</p>;
   if (error) return <p>Hubo un error al cargar la receta.</p>;
   const recipe = data.recipe || {};
@@ -26,7 +31,7 @@ export const DetailContainer = () => {
             <ul>
               {
                 recipe.ingredients.map(ingredient => (
-                  <li key={ingredient.id} className="mb-2">
+                  <li key={ingredient._id} className="mb-2">
                     {ingredient.name}
                   </li>
                 ))
@@ -44,7 +49,6 @@ export const DetailContainer = () => {
           </div>
         </div>
       </section>
-
     </>
   )
 }

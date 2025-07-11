@@ -3,7 +3,6 @@
  */
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
 
 // Configuración de la web app de Firebase
 const firebaseConfig = {
@@ -20,6 +19,5 @@ const app = initializeApp(firebaseConfig);
 
 // Exportar instancias para autenticación y base de datos
 export const auth = getAuth(app);
-export const db = getFirestore(app); // Firestore
 export default app;
 
