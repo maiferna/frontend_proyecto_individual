@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { auth } from '../config/firebaseConfig';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from 'firebase/auth';
 import { sendUserUid } from '../utils/sendUserUid';
 import { Link, useNavigate } from 'react-router';
+import { auth } from '../../config/firebaseConfig';
 
 // capturamos el correo y la contraseña del usuario, luego usamos Firebase para crear la cuenta y almacenamos el rol del usuario en Firestore
 export const RegisterForm = () => {
@@ -23,14 +23,8 @@ export const RegisterForm = () => {
         await updateProfile(user, {
             displayName: name // suponiendo que capturaste un nombre
         });
-      // Se le asigna automáticamente el rol como 'user' al nuevo registro usando setDoc
-      // await setDoc(doc(db, 'users', user.uid), {
-      //   name,
-      //   email: user.email,
-      //   role: 'user' // Asignamos el rol "user" al nuevo usuario
-      // });
 
-      console.log('Usuario registrado exitosamente', user);
+      // console.log('Usuario de Firebase creado:', user);
       await sendUserUid(); // sincroniza con MongoDB y guarda el token
       // Redirigir a la correspondiente ruta
       navigate('/search');
@@ -63,7 +57,7 @@ export const RegisterForm = () => {
           </header>
 
           <article>
-            <form onSubmit={handleRegister} novalidate>
+            <form onSubmit={handleRegister} noValidate>
               <div className="mb-3">
                 <input
                   type="text"

@@ -1,6 +1,6 @@
 
-import { auth} from '../config/firebaseConfig'
 import { fetchCall } from '../../api/fetchCall';
+import { auth } from '../../config/firebaseConfig';
 
 export const sendUserUid = async () => {
     const urlBase = import.meta.env.VITE_API_URL_BASE;
@@ -16,7 +16,7 @@ export const sendUserUid = async () => {
             },
             body: JSON.stringify({
                 firebaseUid: user.uid,
-                name: user.displayName,
+                name: user.displayName || 'Usuario',
                 email: user.email,
                 role: 'user'
             })

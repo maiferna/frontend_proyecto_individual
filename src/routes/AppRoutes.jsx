@@ -3,7 +3,7 @@ import { SearchRecipes, RecipeDetail, FavoriteRecipes, WeekMenu } from "../user/
 import { LoginForm, RegisterForm } from "../auth/pages"
 import { PrivateRoute } from "./PrivateRoute"
 import { AllRecipes, LandingPage } from "../pages"
-import { CreateRecipe, Dashboard, EditRecipe, ManageUsers } from "../admin/pages"
+import { CreateRecipe, Dashboard, EditRecipe} from "../admin/pages"
 
 
 
@@ -30,11 +30,26 @@ export const AppRoutes = () => {
             <Route path="/login" element={<LoginForm />} />
             <Route path='/' element={<LandingPage />} />
             <Route path='/recipes' element={<AllRecipes />} />
-            <Route path='/dashboard' element={<Dashboard />} />
-            <Route path='/create/recipe' element={<CreateRecipe/>}/>
-            <Route path='/edit/recipe/:id' element={<EditRecipe />}/>
-            <Route path='/manage/user' element={<ManageUsers/>}/>
+            <Route path='/dashboard' element={
+                <PrivateRoute allowedRoles={["admin"]}>
+                    <Dashboard />
+                </PrivateRoute>
+            } />
+            <Route path='/create/recipe' element={
+                <PrivateRoute allowedRoles={["admin"]}>
+                    <CreateRecipe />
+                </PrivateRoute>
+            }/>
+            <Route path='/edit/recipe/:id' element={
+                <PrivateRoute allowedRoles={["admin"]}>
+                    <EditRecipe />
+                </PrivateRoute>
+            }/>
+           {/*  <Route path='/manage/user' element={
+                <PrivateRoute allowedRoles={["admin"]}>
+                    <ManageUsers />
+                </PrivateRoute>
+            }/> */}
         </Routes>
-
     )
 }

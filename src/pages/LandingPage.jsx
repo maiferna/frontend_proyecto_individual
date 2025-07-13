@@ -9,7 +9,6 @@ export const LandingPage = () => {
         <h1 className="text-center mb-4">¿Qué comemos hoy?</h1>
         <Link to="/search" className="btn btn-green">Busca recetas</Link>
       </div>
-
     </header>
   )
 }

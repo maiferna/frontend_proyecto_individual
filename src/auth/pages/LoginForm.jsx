@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { sendUserUid } from '../utils/sendUserUid';
 import { Link, useNavigate} from 'react-router';
-import { auth } from '../config/firebaseConfig';
+import { auth } from '../../config/firebaseConfig';
 
 export const LoginForm = () => {
     const [email, setEmail] = useState('');

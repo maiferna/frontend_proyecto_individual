@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 .env
+FavoriteContext.jsx
+ManageUsers.jsx
+UserCard.jsx
+GridUserCards.jsx
 
 # Editor directories and files
 .vscode/*

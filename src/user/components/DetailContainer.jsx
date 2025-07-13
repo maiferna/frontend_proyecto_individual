@@ -1,3 +1,4 @@
+import parse from 'html-react-parser';
 import { useParams } from "react-router";
 import { useFetch } from "../../hooks/useFetch";
 import { useEffect } from "react";
@@ -25,21 +26,21 @@ export const DetailContainer = () => {
       <section className="container mt-5">
         <div className="row align-items-center">
           <div className="col-md-6 order-md-1">
-            <h2 className="mb-3">{recipe.name}</h2>
-            <p className="text-muted mb-4">{recipe.time} | {recipe.difficulty}</p>
-            <p className="mb-2 fw-bold">Ingredientes</p>
+            <h2 className="mb-3 fw-bold">{recipe.name}</h2>
+            <p className="text-muted mb-4">Tiempo: {recipe.time} | Dificultad: {recipe.difficulty}</p>
+            <p className="mb-2 fs-5 fw-bold">Ingredientes</p>
             <ul>
               {
                 recipe.ingredients.map(ingredient => (
                   <li key={ingredient._id} className="mb-2">
-                    {ingredient.name}
+                    {ingredient.quantity} {ingredient.name}
                   </li>
                 ))
               }
             </ul>
             <div className="mt-4">
-              <h5>Pasos:</h5>
-              <p>{recipe.steps}</p>
+              <p className="fw-bold fs-5">Pasos:</p>
+              <div>{parse(recipe.steps || '')}</div>
             </div>
           </div>
           <div className="col-md-6 order-md-2 d-flex justify-content-center">
@@ -74,7 +75,7 @@ export const DetailContainer = () => {
             <div className="mb-4">
               <h5>Color:</h5>
             </div>
-            <div class="mt-4">
+            <div className="mt-4">
               <h5>Pasos:</h5>
               <p>{recipe.steps}</p>
             </div>

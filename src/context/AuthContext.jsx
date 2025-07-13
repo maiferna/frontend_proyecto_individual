@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { auth} from '../config/firebaseConfig';
-import { sendUserUid } from '../utils/sendUserUid'
+import { sendUserUid } from '../auth/utils/sendUserUid'
+import { auth } from '../config/firebaseConfig';
 
 // Crear contexto para poder compartir datos entre componentes
 const AuthContext = createContext();
@@ -18,11 +18,13 @@ export const AuthProvider = ({ children }) => {
         // Se ejecuta cada vez que cambia el estado de autenticación
         // Se dispara cuando alguien inicia o cierra sesión
         const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+            // console.log('Estado de autenticación cambiado. Usuario Firebase:', firebaseUser);
             // Si el usuario está logueado (?)
             if (firebaseUser) {
                 //console.log("Usuario autenticado:", firebaseUser);
                 try {
                     const data = await sendUserUid();
+                    // console.log('Datos recibidos del backend tras sync:', data);
                     setUser(data.user);
                     setRole(data.user.role);
                 } catch (error) {

@@ -26,6 +26,9 @@ export const AllRecipes = () => {
     <section>
       <FilterRecipes setCategory={setCategory} category={category} />
       {console.log('CATEGORIA', category)}
+      {
+        filtered.length === 0 && <p className="text-danger">No hay recetas con esa categoría.</p>
+      }
       <GridRecipes recipes={filtered} />
     </section>
   )

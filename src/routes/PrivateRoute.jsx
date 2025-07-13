@@ -2,7 +2,7 @@
 // Si el usuario no está autenticado o no tiene el rol adecuado, será redirigido a una página específica (inicio o login)
 
 import { Navigate } from 'react-router';
-import { useAuth } from '../auth/context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 
 // allowedRoles --> lista de roles que tienen acceso a la ruta
 export const PrivateRoute = ({ children, allowedRoles }) => {

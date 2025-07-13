@@ -3,7 +3,9 @@ import { BrowserRouter } from 'react-router'
 import './App.css'
 import { AppRoutes } from './routes/AppRoutes'
 import { NavBar } from './ui/NavBar'
-import { AuthProvider } from './auth/context/AuthContext'
+import { AuthProvider } from './context/AuthContext'
+import { FavoriteProvider } from './context/FavoriteContext'
+
 
 
 function App() {
@@ -11,8 +13,8 @@ function App() {
     <>
       <BrowserRouter>
         <AuthProvider>
-          <NavBar />
-          <AppRoutes />
+            <NavBar />
+            <AppRoutes />
         </AuthProvider>
       </BrowserRouter>
     </>
