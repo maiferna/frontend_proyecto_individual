@@ -1,4 +1,10 @@
 
+/**
+ * Función para realizar las llamadas a la API mediante fetch.
+ * @param {String} url url de la API
+ * @param {Object} options Objeto de opciones
+ * @returns Devuelve la data obtenida
+ */
 export const fetchCall = async (url, options = {}) => {
   const { method = "GET", body = null, headers = {} } = options;
   const option = {

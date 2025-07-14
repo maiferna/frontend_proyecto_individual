@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef} from 'react'
 import { useForm } from '../../hooks/useForm';
 import { InputText } from './InputText';
 import { CheckboxGroup } from './CheckboxGroup';
@@ -6,11 +6,13 @@ import { IngredientInput } from './IngredientInput';
 import { ImageInput } from './ImageInput';
 import JoditEditor from 'jodit-react';
 
+/**
+ * Componente que renderiza el formulario para editar recetas.
+ * Gestiona el manejador de los checkbox, añadir y eliminar ingredientes y el submit.
+ */
 export const EditForm = ({ recipe }) => {
     const editor = useRef(null);
     const urlBase = import.meta.env.VITE_API_URL_BASE;
-
-    const [isLoading, setIsLoading] = useState(true);
 
     const {
         form,
@@ -33,25 +35,24 @@ export const EditForm = ({ recipe }) => {
     const categoryOptions = ['ensaladas', 'legumbres', 'postres', 'vegano', 'vegetariano', 'pastas', 'otros', 'carne', 'pescado', 'arroz', 'entrantes'];
     const intoleranceOptions = ['gluten', 'lactosa', 'frutos secos'];
 
+    /**
+     * Al montar el componente, se setea el formulario con la información de la receta.
+     * En imageUrl se guarda la url de la imagen, ya que no se puede autorellenar un file.
+     */
     useEffect(() => {
         if (recipe) {
             setForm({
                 ...recipe,
-                image: null, // file vacío al inicio
-                imageUrl: recipe.image, // la url de la imagen guardada
+                image: null,
+                imageUrl: recipe.image,
                 id: recipe._id
             });
         }
     }, [recipe])
 
     const handleCheckbox = (ev) => {
-        // Extrae los datos del checkbox
         const { name, value, checked } = ev.target;
-        // Obtiene el array actual para ese campo
         const current = form[name] || [];
-
-        // Actualiza el estado del formulario
-        // Si el checkbox está marcado, añade el valor, si está desmarcado, elimina el valor
         setForm({
             ...form,
             [name]: checked
@@ -78,7 +79,6 @@ export const EditForm = ({ recipe }) => {
         ev.preventDefault();
         formSend(`${urlBase}admin/edit/${form.id}`, 'PUT');
     };
-
 
     return (
         <form onSubmit={handleSubmit} className="card p-4 m-4">
@@ -138,8 +138,6 @@ export const EditForm = ({ recipe }) => {
                 <JoditEditor
                     ref={editor}
                     value={form.steps}
-                    // Cuando se ejecuta pasa el contenido actualizado del editor como un string de HTML (newContent)
-                    // newContent es lo que el usuario ha escrito
                     onChange={(newContent) =>
                         setForm((prev) => ({ ...prev, steps: newContent }))
                     }

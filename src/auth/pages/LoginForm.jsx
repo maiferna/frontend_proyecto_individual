@@ -1,9 +1,11 @@
 import { useState } from 'react';
-// import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router';
-// import { auth } from '../../config/firebaseConfig';
 import { useAuth } from '../../context/AuthContext';
 
+/**
+ * Componente para el formulario del login.
+ * Renderiza el formulario de inicio de sesión con los campos email y contraseña y un botón para autenticar mediante Google.
+ */
 export const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -29,8 +31,6 @@ export const LoginForm = () => {
       throw(error)
     }
   }
-
-    
 
     return (
         <section className="container d-flex justify-content-center align-items-center vh-100">

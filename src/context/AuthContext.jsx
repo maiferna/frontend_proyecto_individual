@@ -4,10 +4,17 @@ import { sendUserUid } from '../auth/utils/sendUserUid'
 import { auth } from '../config/firebaseConfig';
 import { getUserById } from '../auth/utils/getUserById';
 import { GoogleAuthProvider } from 'firebase/auth/web-extension';
-
-// Crear contexto para poder compartir datos entre componentes
+/**
+ * Crear contexto para poder compartir datos del usuario entre componentes
+ */
 const AuthContext = createContext();
 
+/**
+ * Proveedor del contexto de autenticación. Guarda la lógica de autenticación de Firebase.
+ * Observa los cambios en el estaod de autenticación de Firebase y mantiene actualizado el usuario.
+ * @param {Object} children 
+ * @returns Devuelve el usuario autenticado, su rol y las funciones de registro, inicio de sesión y logout.
+ */
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [role, setRole] = useState(null);
@@ -16,8 +23,6 @@ export const AuthProvider = ({ children }) => {
     const register = async (email, password, name) => {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
-        // Es un método de Firebase Authentication que permite actualizar datos básicos del usuario autenticado
-        // Se utiliza porque firebase no recoge el nombre y así podemos tenerlo capturado para usarlo en nuestor UI
         await updateProfile(user, { displayName: name });
         const data = await sendUserUid();
         setUser(data.user);
@@ -39,20 +44,13 @@ export const AuthProvider = ({ children }) => {
     };
 
     const loginGoogle = async () => {
-        // Creamos una instancia del objeto GoogleAuthProvider, que le indica a Firebase que queremos autenticarnos con Google.
         const provider = new GoogleAuthProvider();
-        console.log("auth:", auth);
-        console.log("provider:", provider);
         try {
-            // Abre una ventana emergente para que el usuario se registre con google
-            // Si el usuario está registrado lo autentica y sino lo registra
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
-            console.log('Usuario registrado con google')
             const data = await sendUserUid();
             setUser(data.user);
             setRole(data.user.role);
-            // navigate('/search');
         } catch (error) {
             console.log('Error en el registro', error.message);
             throw error;
@@ -82,6 +80,10 @@ export const AuthProvider = ({ children }) => {
     );
 };
 
+/**
+ * Hook para acceder al contexto de autenticación.
+ * @returns Devuelve el contexto de autenticación.
+ */
 export const useAuth = () => {
     return useContext(AuthContext);
 }

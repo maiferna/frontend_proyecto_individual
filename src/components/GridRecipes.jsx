@@ -1,5 +1,8 @@
 import { CardRecipes } from "./CardRecipes"
 
+/**
+ * Componente contenedor de cards.
+ */
 export const GridRecipes = ({ recipes, initialFavorite }) => {
 
   return (

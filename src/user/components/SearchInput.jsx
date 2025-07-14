@@ -3,9 +3,13 @@ import { useEffect, useState } from 'react'
 import { useFetch } from '../../hooks/useFetch'
 import { useAuth } from '../../context/AuthContext';
 
-
+/**
+ * Componente para buscar recetas según los ingredientes insertados.
+ * Si data.recipes existe, se actualiza el estado recipes con setRecipes.
+ * Si el ingrediente no está repetido, lo añade al array de ingredientes.
+ * El array de ingrredientes viene del componente padre, por lo que cuando React detecta un cambio, envía el array actualizado
+ */
 export const SearchInput = ({ ingredients, setIngredients, setRecipes }) => {
-    // Cada vez que cambia el input, onChange, se actualiza su valor
     const [input, setInput] = useState("");
     const [error, setError] = useState('')
     const [oneIngredient, setOneIngredient] = useState(false);
@@ -16,7 +20,6 @@ export const SearchInput = ({ ingredients, setIngredients, setRecipes }) => {
         method: 'POST'
     })
 
-    // Si data.recipes existe, se actualiza el estado recipes con setRecipes
     useEffect(() => {
         if (data && data.ok === false) {
             setError(data.msg);
@@ -26,8 +29,6 @@ export const SearchInput = ({ ingredients, setIngredients, setRecipes }) => {
         }
     }, [data, setRecipes]);
 
-    // Si el ingrediente no está repetido, lo añade al array de ingredientes
-    // El array de ingrredientes viene del componente padre, por lo que cuando React detecta un cambio, envía el array actualizado
     const handleAdd = (e) => {
         e.preventDefault();
         if (!ingredients.includes(input)) {
@@ -36,7 +37,6 @@ export const SearchInput = ({ ingredients, setIngredients, setRecipes }) => {
         setInput("");
     };
 
-    // Elimina el ingrediente del array
     const handleDelete = (name) => {
         setIngredients(ingredients.filter((ingredient) => ingredient !== name));
     };
@@ -44,7 +44,6 @@ export const SearchInput = ({ ingredients, setIngredients, setRecipes }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setError('')
-        console.log("Ingredientes a buscar:", ingredients);
         if (ingredients.length === 1) {
             setOneIngredient(true);
         } else {

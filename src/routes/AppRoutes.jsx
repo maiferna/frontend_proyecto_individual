@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router"
+import { Route, Routes } from "react-router"
 import { SearchRecipes, RecipeDetail, FavoriteRecipes, WeekMenu } from "../user/pages"
 import { LoginForm, RegisterForm } from "../auth/pages"
 import { PrivateRoute } from "./PrivateRoute"
@@ -6,8 +6,9 @@ import { AllRecipes, LandingPage } from "../pages"
 import { CreateRecipe, Dashboard, EditRecipe} from "../admin/pages"
 import { PublicRoute } from "./PublicRoute"
 
-
-
+/**
+ * Componente para definir las rutas de la aplicación.
+ */
 export const AppRoutes = () => {
     return (
         <Routes>

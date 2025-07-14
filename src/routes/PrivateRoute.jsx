@@ -1,27 +1,23 @@
-// Restringe el acceso a ciertas rutas dependiendo del estado del usuario y su rol
-// Si el usuario no está autenticado o no tiene el rol adecuado, será redirigido a una página específica (inicio o login)
 
 import { Navigate } from 'react-router';
 import { useAuth } from '../context/AuthContext';
 
-// allowedRoles --> lista de roles que tienen acceso a la ruta
+/**
+ * Componente para definir las rutas privadas de la aplicación.
+ * @param {Array} allowedRoles Roles permitidos
+ * @returns Si el usuario está logueado y tiene el rol adecuado, muestra el contenido de la ruta protegida
+ */
 export const PrivateRoute = ({ children, allowedRoles }) => {
-  // accede al usuario autenticado y su rol desde el contexto AuthContext
   const { user, role, loading } = useAuth();
 
-  if (loading) return null; // El componente espera sin hacer nada, hasta que recibe el user
-  // Si el usuario no está autenticado, redirige a login
+  if (loading) return null;
   
   if (!user) {
-    console.log("Redirigiendo a login");
     return <Navigate to="/login" />;
   }
-  // Si el usuario está autenticado, pero su rol no está dentro del array de roles permitidos, redirige al inicio
   if (!allowedRoles.includes(role)) {
-    console.log("Redirigiendo a home: rol no permitido");
     return <Navigate to="/" />;
   }
 
-  // Si el usuario está logueado y tiene el rol adecuado, muestra el contenido de la ruta protegida
   return children;
 }

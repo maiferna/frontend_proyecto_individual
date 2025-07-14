@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const IngredientInput = ({ ingredients = ['patata', 'huevo', 'sal'], addIngredient, removeIngredient }) => {
+export const IngredientInput = ({ ingredients, addIngredient, removeIngredient }) => {
   const [inputName, setInputName] = useState('');
   const [inputQuantity, setInputQuantity] = useState('');
 

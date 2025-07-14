@@ -1,10 +1,11 @@
 import { useState } from 'react';
-// import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router';
-// import { auth } from '../../config/firebaseConfig';
 import { useAuth } from '../../context/AuthContext';
 
-// capturamos el correo y la contraseña del usuario, luego usamos Firebase para crear la cuenta y almacenamos el rol del usuario en Firestore
+/**
+ * Componente para el formulario de registro.
+ * Renderiza el formulario de registro con los campos nombre, email y contraseña y un botón para autenticar mediante Google.
+ */
 export const RegisterForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');

@@ -6,6 +6,11 @@ import { IngredientInput } from '../components/IngredientInput';
 import { ImageInput } from '../components/ImageInput';
 import { useForm } from '../../hooks/useForm';
 
+/**
+ * Componente que renderiza el formulario para crear recetas.
+ * useRef hace referencia al editor Jodit Editor.
+ * Gestiona el manejador de los checkbox, añadir y eliminar ingredientes y el submit.
+ */
 export const CreateRecipe = () => {
     const urlBase = import.meta.env.VITE_API_URL_BASE;
     const editor = useRef(null);
@@ -29,14 +34,13 @@ export const CreateRecipe = () => {
     const categoryOptions = ['ensaladas', 'legumbres', 'postres', 'vegano', 'vegetariano', 'pastas', 'otros', 'carne', 'pescado', 'arroz', 'entrantes'];
     const intoleranceOptions = ['gluten', 'lactosa', 'frutos secos'];
 
+    /**
+     * Extrae los datos del checkbox y obtiene el array actual para ese campo.
+     * Comprueba si el checkbox está marcado, si lo está añade el valor, si no lo elimina
+     */
     const handleCheckbox = (ev) => {
-        // Extrae los datos del checkbox
         const { name, value, checked } = ev.target;
-        // Obtiene el array actual para ese campo
         const current = form[name] || [];
-
-        // Actualiza el estado del formulario
-        // Si el checkbox está marcado, añade el valor, si está desmarcado, elimina el valor
         setForm({
             ...form,
             [name]: checked
@@ -44,16 +48,7 @@ export const CreateRecipe = () => {
                 : current.filter((item) => item !== value),
         });
     };
-   
 
-    // const config = useMemo(() => ({
-    //     readonly: false,
-    //     placeholder: 'Escribe los pasos de la receta...',
-    // }), []);
-
-    // prevValue es el estado anterior del formulario, es decir, si de primeras ingredients es un array vacío y le añadimos uno nuevo, prev será el vacío.
-    // Después si el array ingredientes es tomate y queremos añadir otro, prev será tomate
-    // ...prevValue extiende el objeto del formulario con sus propiedades
     const addIngredient = (ingredient) => {
         setForm((prevValue) => ({
             ...prevValue,
@@ -130,8 +125,6 @@ export const CreateRecipe = () => {
                 <JoditEditor
                     ref={editor}
                     value={form.steps}
-                    // Cuando se ejecuta pasa el contenido actualizado del editor como un string de HTML (newContent)
-                    // newContent es lo que el usuario ha escrito
                     onChange={(newContent) =>
                         setForm((prev) => ({ ...prev, steps: newContent }))
                     }

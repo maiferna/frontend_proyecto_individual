@@ -1,6 +1,8 @@
 import { Link } from "react-router"
 
-
+/**
+ * Página principal que da acceso al buscador de recetas.
+ */
 export const LandingPage = () => {
 
   return (

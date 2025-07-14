@@ -1,6 +1,7 @@
 
-import { useState } from 'react';
-
+/**
+ * Componente para filtrar recetas por su categoría.
+ */
 export const FilterRecipes = ({ setCategory, category }) => {
     const categories = ['todas', 'ensaladas', 'legumbres', 'postres', 'vegano', 'vegetariano', 'pastas', 'carne', 'pescado', 'arroz', 'entrantes', 'otros'];
 

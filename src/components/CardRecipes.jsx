@@ -3,21 +3,23 @@ import { useState } from "react";
 import { useFetch } from "../hooks/useFetch";
 import { useAuth } from "../context/AuthContext";
 
-
+/**
+ * Componente para mostrar las tarjetas de las recetas.
+ * Gestiona las funciones para añadir y eliminar de favoritos.
+ */
 export const CardRecipes = ({ recipe, initialFavorite }) => {
   const [isFavorite, setIsFavorite] = useState(initialFavorite);
-  const { ingredients, name, image, _id, difficulty } = recipe;
+  const { name, image, _id } = recipe;
   const host = import.meta.env.VITE_LOCAL_HOST
   const imageUrl = `${host}uploads/${image}`;
   const urlBase = import.meta.env.VITE_API_URL_BASE;
   const token = localStorage.getItem("token");
 
   const { user } = useAuth();
-  const uid = user?._id; // solo accede si existe
+  const uid = user?._id;
 
   const { data, loading, fetchData } = useFetch(`${urlBase}favorite/user/${uid}`,
     { method: 'POST' })
-
 
   const handleAddFavorite = () => {
     setIsFavorite(true);
@@ -35,7 +37,6 @@ export const CardRecipes = ({ recipe, initialFavorite }) => {
       headers: { "Authorization": `Bearer ${token}` },
       body: JSON.stringify({ id: _id })
     })
-    console.log('RECETA ELIMINADA')
   };
 
   const handleClick = () => {
