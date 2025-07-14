@@ -1,3 +1,39 @@
+
+# INICIAR UNA APLICACIÓN
+
+### 1- Clonar repositorio
+
+```shell
+    git clone <url-del-repositorio>
+```
+
+### 2- Crear archivo para las variables de entorno
+
+Seguir las indicaciones de .env-template, duplicar el archivo .env y modificar los valores
+
+### 3- Instalar dependencias
+
+- react-router
+- react
+- jodit-react
+- html-react-parser
+- firebase
+- sweetalert2
+
+```shell
+    yarn add <modulo>
+```
+
+### 4- Iniciar aplicación
+
+```shell
+    yarn
+```
+
+
+
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

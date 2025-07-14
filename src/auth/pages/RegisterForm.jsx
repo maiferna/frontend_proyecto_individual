@@ -1,64 +1,38 @@
 import { useState } from 'react';
-import { auth, db } from '../config/firebaseConfig';
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { setDoc, doc, getDoc } from 'firebase/firestore';
-import { sendUserUid } from '../utils/sendUserUid';
+// import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from 'firebase/auth';
+import { Link, useNavigate } from 'react-router';
+// import { auth } from '../../config/firebaseConfig';
+import { useAuth } from '../../context/AuthContext';
 
 // capturamos el correo y la contraseña del usuario, luego usamos Firebase para crear la cuenta y almacenamos el rol del usuario en Firestore
 export const RegisterForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const { register, loginGoogle } = useAuth();
 
   const handleRegister = async (ev) => {
     ev.preventDefault();
     try {
-      // Creamos una cuenta nueva con el método createUserWithEmailAndPassword
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      // Usuario registrado
-      const user = userCredential.user;
-
-      // Se le asigna automáticamente el rol como 'user' al nuevo registro usando setDoc
-      await setDoc(doc(db, 'users', user.uid), {
-        name,
-        email: user.email,
-        role: 'user' // Asignamos el rol "user" al nuevo usuario
-      });
-
-      console.log('Usuario registrado exitosamente');
-      await sendUserUid();
-      // Redirigir a la correspondiente ruta
+      await register(email, password, name);
+      navigate('/search');
     } catch (error) {
-      console.log('Error en el registro', error.message);
+      console.error('Error en el registro:', error);
+      throw error
     }
   };
 
   const handleGoogleRegister = async () => {
-    // Creamos una instancia del objeto GoogleAuthProvider, que le indica a Firebase que queremos autenticarnos con Google.
-    const provider = new GoogleAuthProvider();
     try {
-      // Abre una ventana emergente para que el usuario se registre con google
-      // Si el usuario está registrado lo autentica y sino lo registra
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      const userRef = doc(db, 'users', user.uid); // doc crea una referencia de documento, porque setDoc funciona con referencias y no con snapshots
-
-      const userDoc = await getDoc(userRef); // devuelve el snapshot: el estado de un documento o una colección en el momento en que haces la consulta.
-      // exists comprueba si existe o no. Si no existe, guarda en firestore los datos del usuario
-      if (!userDoc.exists()) {
-        await setDoc(userRef, {
-          name: user.displayName,
-          email: user.email,
-          role: 'user',
-        });
-      }
-      console.log('Usuario registrado con google')
-      await sendUserUid();
+      await loginGoogle();
+      navigate('/search');
     } catch (error) {
-      console.log('Error en el registro', error.message);
+      console.log('Error al registrar con Google', error.message);
+      throw(error)
     }
   }
-  // Sacar token y pasárselo al back?
+
   return (
     <>
       <section className="container d-flex justify-content-center align-items-center vh-100">
@@ -68,7 +42,7 @@ export const RegisterForm = () => {
           </header>
 
           <article>
-            <form onSubmit={handleRegister}>
+            <form onSubmit={handleRegister} noValidate>
               <div className="mb-3">
                 <input
                   type="text"
@@ -119,7 +93,7 @@ export const RegisterForm = () => {
                   Registrarse con Google
                 </button>
               </div>
-              <p className="text-center">¿Ya tienes cuenta? <a>Inicia sesión</a></p> {/* Redirigir a login */}
+              <p className="text-center">¿Ya tienes cuenta? <Link to="/login" className='color-green'>Inicia sesión</Link></p>
             </form>
           </article>
         </div>

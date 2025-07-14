@@ -1,23 +1,49 @@
 * {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
+.ff-grotesk {
+    font-family: 'Bricolage Grotesque', sans-serif;;
+}
+
+
 .btn-green {
-    background-color: rgba(66,118,109,255);
+    background-color: rgba(66, 118, 109, 255);
+    color: white;
+}
+
+.btn-red {
+    background-color: #E65C3C;
+    color: white;
+}
+
+.btn-red:hover {
+    border: 1px solid #E65C3C;
+    color: black;
+}
+
+.btn-red-border {
+    border: 1px solid #E65C3C;
+    color: #E65C3C;
+}
+
+.btn-red-border:hover {
+    background-color: #E65C3C;
     color: white;
 }
 
 .btn-green-border {
-    border: 1px solid rgba(66,118,109,255);
+    border: 1px solid rgba(66, 118, 109, 255);
 }
 
 .btn-green-border:hover {
-    border: 1px solid rgba(66,118,109,255);
+    border: 1px solid rgba(66, 118, 109, 255);
 }
+
 
 .btn-green:hover {
     background-color: white;
-    border: 1px solid rgba(66,118,109,255);
+    border: 1px solid rgba(66, 118, 109, 255);
 }
 
 .width-container {
@@ -28,6 +54,40 @@
     width: 10%;
 }
 
-/* @media (min-width: 992px) {
-    
-} */
+.color-green {
+    color: rgba(66, 118, 109, 255);
+}
+
+.bg-green {
+    background-color: rgba(66, 118, 109, 255);
+}
+
+.bg-yellow {
+    background-color: rgba(249,249,229,255);
+}
+
+.color-white {
+    color: white;
+}
+
+.color-black {
+    color: rgb(8, 77, 59);
+}
+
+
+div.landing-container {
+    height: 100vh;
+}
+
+.recipe-image {
+    width: 100%;
+    max-width: 500px;
+}
+
+.border-white {
+    border: 1px solid white;
+}
+
+.bg-white .navbar-toggle-icon {
+    background-color: white;
+}
