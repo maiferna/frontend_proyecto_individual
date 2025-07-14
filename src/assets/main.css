@@ -1,6 +1,11 @@
 * {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
+
+.ff-grotesk {
+    font-family: 'Bricolage Grotesque', sans-serif;;
+}
+
 
 .btn-green {
     background-color: rgba(66, 118, 109, 255);
@@ -10,6 +15,11 @@
 .btn-red {
     background-color: #E65C3C;
     color: white;
+}
+
+.btn-red:hover {
+    border: 1px solid #E65C3C;
+    color: black;
 }
 
 .btn-red-border {
@@ -63,9 +73,7 @@
 .color-black {
     color: rgb(8, 77, 59);
 }
-/* @media (min-width: 992px) {
-    
-} */
+
 
 div.landing-container {
     height: 100vh;

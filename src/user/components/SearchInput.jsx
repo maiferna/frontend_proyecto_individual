@@ -19,8 +19,9 @@ export const SearchInput = ({ ingredients, setIngredients, setRecipes }) => {
     // Si data.recipes existe, se actualiza el estado recipes con setRecipes
     useEffect(() => {
         if (data && data.ok === false) {
-            setError(data.msg)
+            setError(data.msg);
         } else if (data.recipes) {
+            setError('');
             setRecipes(data.recipes);
         }
     }, [data, setRecipes]);
@@ -42,6 +43,7 @@ export const SearchInput = ({ ingredients, setIngredients, setRecipes }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setError('')
         console.log("Ingredientes a buscar:", ingredients);
         if (ingredients.length === 1) {
             setOneIngredient(true);
@@ -87,7 +89,7 @@ export const SearchInput = ({ ingredients, setIngredients, setRecipes }) => {
                 <button className="btn btn-green" onClick={handleSubmit}>
                     Buscar recetas
                 </button>
-                {oneIngredient && (
+                {oneIngredient && !error && data?.recipes?.length > 0 && (
                     <p className="mt-3 text-center">
                         Igual va siendo hora de hacer la compra... Pero aquí te dejamos algunas ideas. 🙄🛒
                     </p>
@@ -99,49 +101,3 @@ export const SearchInput = ({ ingredients, setIngredients, setRecipes }) => {
         </section>
     )
 }
-
-
-
-
-//     const urlBase = import.meta.env.VITE_API_URL_BASE;
-// // Inputs dinámicos
-// const [input, setInput] = useState('')
-// const { user } = useAuth();
-
-// const { data, loading, error, fetchData } = useFetch(`${urlBase}recipes/ingredients`, 'POST');
-
-// const handleChange = (ev) => {
-//     setInput(ev.target.value);
-// }
-// const handleSubmit = (ev) => {
-//     ev.preventDefault()
-//     setIngredients([...ingredients, input]);
-//     setInput('');
-// }
-
-// const handleAddInput = () => {
-//     if (input.length < 7) {
-//         setInput([...input, ""]);
-//     }
-// };
-
-// return (
-//     <>
-//         <section className="container-fluid">
-//             <h2>Busca recetas</h2>
-//             <form className="d-flex mx-auto p-2" onSubmit={handleSubmit}>
-//                 <input
-//                     className="form-control me-2"
-//                     type="text"
-//                     placeholder="Añade un ingrediente"
-//                     // value={input}
-//                     onChange={handleChange}
-//                 />
-//                 <button className="btn btn-outline-success" type="submit" onClick={handleAddInput}>
-//                         +
-//                 </button>
-//                 <button className="btn btn-outline-success" type="submit">Buscar</button>
-//             </form>
-//         </section>
-//     </>
-// )

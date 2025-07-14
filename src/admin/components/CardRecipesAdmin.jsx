@@ -1,9 +1,9 @@
-import React from 'react'
+import Swal from 'sweetalert2'
 import { Link } from 'react-router';
-import { useFetch } from '../../hooks/useFetch';
+
 
 export const CardRecipesAdmin = ({ recipe, handleDelete }) => {
-    const { ingredients, name, image, _id, difficulty } = recipe;
+    const { name, image, _id } = recipe;
     const host = import.meta.env.VITE_LOCAL_HOST
     const imageUrl = `${host}uploads/${image}`;
     const urlBase = import.meta.env.VITE_API_URL_BASE;
@@ -17,18 +17,28 @@ export const CardRecipesAdmin = ({ recipe, handleDelete }) => {
                 <h5 className="card-title fw-bold">{name}</h5>
                 <div className="d-flex justify-content-between mt-3">
                     <Link to={`/edit/recipe/${_id}`} className="btn btn-green-border">Editar</Link>
-                    {/* <button
-                        className="btn btn-danger"
+                    <button
+                        className="btn btn-red"
                         onClick={() => {
-                            if (alert(`¿Eliminar receta "${name}"?`)) {
-                                handleDelete(_id);
-                            }
-                        }}>
-                        Eliminar
-                    </button> */}
-                    <button onClick={() => handleDelete(_id)} className="btn btn-red">
-                        Eliminar
-                    </button>
+                            // se ejecuta la alerta
+                            Swal.fire({
+                                title: `¿Eliminar "${name}"?`,
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3fbd5fff',
+                                cancelButtonColor: '#f14f33ff',
+                                confirmButtonText: 'Eliminar',
+                                cancelButtonText: 'Cancelar'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    //isConfirmes es una propiedad de result. Si se confirma, elimina la receta
+                                    handleDelete(_id);
+                                    // Lanza otra alerta para avisar de que se eliminó correctamente
+                                    Swal.fire('Eliminado', 'La receta ha sido eliminada.', 'success');
+                                }
+                            });
+                        }}
+                    >Eliminar</button>
                 </div>
 
             </div>

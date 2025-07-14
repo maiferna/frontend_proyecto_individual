@@ -8,7 +8,7 @@ export const SearchRecipes = () => {
   const [recipes, setRecipes] = useState([]);
 
   return (
-    <section className="container my-5">
+    <section>
       <SearchInput
         ingredients={ingredients}
         setIngredients={setIngredients}

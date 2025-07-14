@@ -22,12 +22,13 @@ export const AllRecipes = () => {
   const filtered = category === 'todas' ? recipes : recipes.filter((recipe) => recipe.category.includes(category));
   //const categories = ['todas', ...new Set(recipes.map(recipe => recipe.category))];
 
+  // Imprimir error cuando loading termina de cargar
   return (
     <section>
       <FilterRecipes setCategory={setCategory} category={category} />
       {console.log('CATEGORIA', category)}
       {
-        filtered.length === 0 && <p className="text-danger">No hay recetas con esa categoría.</p>
+        !loading && filtered.length === 0 && <p className="m-4">No hay recetas con esa categoría.</p>
       }
       <GridRecipes recipes={filtered} />
     </section>

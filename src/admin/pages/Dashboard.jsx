@@ -7,6 +7,7 @@ import { fetchCall } from '../../api/fetchCall';
 export const Dashboard = () => {
 
   const urlBase = import.meta.env.VITE_API_URL_BASE;
+  const token = localStorage.getItem("token");
 
   const { data, loading, error, fetchData } = useFetch(`${urlBase}recipes`, {
     method: 'GET'
@@ -19,7 +20,8 @@ export const Dashboard = () => {
   // Mirar esto bien por si se puede cambiar
   const handleDelete = async (id) => {
     await fetchCall(`${urlBase}admin/delete/${id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: { "Authorization": `Bearer ${token}`}
     })
     fetchData(); // Vuelve a cargar la lista actualizada de las recetas
   }

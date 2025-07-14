@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from 'firebase/auth';
-import { sendUserUid } from '../utils/sendUserUid';
+// import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router';
-import { auth } from '../../config/firebaseConfig';
+// import { auth } from '../../config/firebaseConfig';
+import { useAuth } from '../../context/AuthContext';
 
 // capturamos el correo y la contraseña del usuario, luego usamos Firebase para crear la cuenta y almacenamos el rol del usuario en Firestore
 export const RegisterForm = () => {
@@ -10,44 +10,29 @@ export const RegisterForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { register, loginGoogle } = useAuth();
 
   const handleRegister = async (ev) => {
     ev.preventDefault();
     try {
-      // Creamos una cuenta nueva con el método createUserWithEmailAndPassword
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      // Usuario registrado
-      const user = userCredential.user;
-
-      // opcional: actualizar el displayName del usuario
-        await updateProfile(user, {
-            displayName: name // suponiendo que capturaste un nombre
-        });
-
-      // console.log('Usuario de Firebase creado:', user);
-      await sendUserUid(); // sincroniza con MongoDB y guarda el token
-      // Redirigir a la correspondiente ruta
+      await register(email, password, name);
       navigate('/search');
     } catch (error) {
-      console.log('Error en el registro', error.message);
+      console.error('Error en el registro:', error);
+      throw error
     }
   };
 
   const handleGoogleRegister = async () => {
-    // Creamos una instancia del objeto GoogleAuthProvider, que le indica a Firebase que queremos autenticarnos con Google.
-    const provider = new GoogleAuthProvider();
     try {
-      // Abre una ventana emergente para que el usuario se registre con google
-      // Si el usuario está registrado lo autentica y sino lo registra
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      console.log('Usuario registrado con google')
-      await sendUserUid();
+      await loginGoogle();
       navigate('/search');
     } catch (error) {
-      console.log('Error en el registro', error.message);
+      console.log('Error al registrar con Google', error.message);
+      throw(error)
     }
   }
+
   return (
     <>
       <section className="container d-flex justify-content-center align-items-center vh-100">
@@ -108,7 +93,7 @@ export const RegisterForm = () => {
                   Registrarse con Google
                 </button>
               </div>
-              <p className="text-center">¿Ya tienes cuenta? <Link to="/login" className='color-green'>Inicia sesión</Link></p> {/* Redirigir a login */}
+              <p className="text-center">¿Ya tienes cuenta? <Link to="/login" className='color-green'>Inicia sesión</Link></p>
             </form>
           </article>
         </div>

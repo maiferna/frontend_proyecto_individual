@@ -10,11 +10,11 @@ export const CheckboxGroup = ({ label, name, options, selected = [], onChange })
             <input
               className="btn-check"
               type="checkbox"
-              name={name} // ✅ para que e.target.name funcione
+              name={name}
               value={option}
-              id={`${name}-${option}`}
+              id={`${name}-${option}`} //mirar
               checked={selected.includes(option)}
-              onChange={onChange} // ✅ pasamos el evento como está
+              onChange={onChange}
             />
             <label className="btn btn-outline-dark" htmlFor={`${name}-${option}`}>
               {option}

@@ -97,7 +97,7 @@ export const NavBar = () => {
     <>
       <nav className="navbar navbar-light bg-green px-4 navbar-expand-lg">
         <div className="container-fluid">
-          <Link className="navbar-brand fw-bold color-white" to="/">Planit</Link>
+          <Link className="navbar-brand fw-bold color-white ff-grotesk" to="/">Planit</Link>
 
           <button
             className="navbar-toggler border-white color-white"
@@ -140,7 +140,6 @@ export const NavBar = () => {
                   )
                 }
 
-                {/* SOLO SI ESTÁ AUTENTICADO */}
                 {user && role === 'user' && (
                   <>
                     <li className="nav-item">
@@ -155,7 +154,6 @@ export const NavBar = () => {
                   </>
                 )}
 
-                {/* SOLO SI ES ADMIN */}
                 {user && role === 'admin' && (
                   <>
                     <li className="nav-item">
@@ -168,7 +166,6 @@ export const NavBar = () => {
                   </>
                 )}
 
-                {/* SI NO ESTÁ LOGUEADO */}
                 {!user && (
                   <>
                     <li className="nav-item">
@@ -180,7 +177,6 @@ export const NavBar = () => {
                   </>
                 )}
 
-                {/* SI ESTÁ LOGUEADO */}
                 {user && (
                   <li className="nav-item">
                     <button onClick={handleLogout} className="btn btn-link nav-link color-white">Cerrar sesión</button>

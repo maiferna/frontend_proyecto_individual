@@ -4,7 +4,6 @@ import './App.css'
 import { AppRoutes } from './routes/AppRoutes'
 import { NavBar } from './ui/NavBar'
 import { AuthProvider } from './context/AuthContext'
-import { FavoriteProvider } from './context/FavoriteContext'
 
 
 

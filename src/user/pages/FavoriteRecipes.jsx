@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { GridRecipes } from '../../components/GridRecipes'
 import { useFetch } from '../../hooks/useFetch';
 import { useAuth } from '../../context/AuthContext';
-import { useFavorites } from '../../context/FavoriteContext';
 
 
 export const FavoriteRecipes = () => {

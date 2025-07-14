@@ -5,7 +5,7 @@ import { auth } from '../../config/firebaseConfig';
 export const sendUserUid = async () => {
     const urlBase = import.meta.env.VITE_API_URL_BASE;
     const user = auth.currentUser;
-    //console.log('CURRENT USER', auth.currentUser)
+    console.log('CURRENT USER', auth.currentUser)
     if (!user) return;
     try {
         // Modificar url y meter mi función fetch
@@ -16,7 +16,7 @@ export const sendUserUid = async () => {
             },
             body: JSON.stringify({
                 firebaseUid: user.uid,
-                name: user.displayName || 'Usuario',
+                name: user.displayName,
                 email: user.email,
                 role: 'user'
             })

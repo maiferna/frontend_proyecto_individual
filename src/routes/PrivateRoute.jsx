@@ -8,10 +8,10 @@ import { useAuth } from '../context/AuthContext';
 export const PrivateRoute = ({ children, allowedRoles }) => {
   // accede al usuario autenticado y su rol desde el contexto AuthContext
   const { user, role, loading } = useAuth();
-  //console.log("PrivateRoute - user:", user, "role:", role, "loading:", loading);
-  
+
   if (loading) return null; // El componente espera sin hacer nada, hasta que recibe el user
   // Si el usuario no está autenticado, redirige a login
+  
   if (!user) {
     console.log("Redirigiendo a login");
     return <Navigate to="/login" />;
