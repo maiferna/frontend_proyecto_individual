@@ -10,9 +10,8 @@ import { useEffect } from "react";
 export const DetailContainer = () => {
   const urlBase = import.meta.env.VITE_API_URL_BASE;
   const { id } = useParams();
-  const recipe = data.recipe || {};
   const host = import.meta.env.VITE_LOCAL_HOST;
-  const imageUrl = `${host}uploads/${recipe.image}`;
+
 
   const { data, loading, error, fetchData } = useFetch(`${urlBase}recipe/${id}`, {
     method: 'GET'
@@ -22,9 +21,10 @@ export const DetailContainer = () => {
     fetchData();
   }, []);
 
-  // if (loading) return <p>Cargando receta...</p>;
-  // if (error) return <p>Hubo un error al cargar la receta.</p>;
-  
+  if (loading) return null;
+  const recipe = data.recipe || {};
+  const imageUrl = `${host}uploads/${recipe.image}`;
+
   return (
     <>
       <section className="container mt-5">

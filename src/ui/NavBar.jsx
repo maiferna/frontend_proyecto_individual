@@ -3,7 +3,6 @@ import { useAuth } from '../context/AuthContext';
 
 /**
  * Componente para la barra de navegación con enlaces dinámicos según el tipo de usuario.
- * @returns 
  */
 export const NavBar = () => {
 

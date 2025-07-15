@@ -12,7 +12,7 @@ export const CheckboxGroup = ({ label, name, options, selected = [], onChange })
               type="checkbox"
               name={name}
               value={option}
-              id={`${option}`} //mirar`${name}-
+              id={`${name}-${option}`}
               checked={selected.includes(option)}
               onChange={onChange}
             />

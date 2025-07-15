@@ -1,4 +1,4 @@
-import {useRef} from 'react'
+//import {useRef} from 'react'
 import JoditEditor from 'jodit-react';
 import { InputText } from '../components/InputText';
 import { CheckboxGroup } from '../components/CheckboxGroup';
@@ -13,7 +13,7 @@ import { useForm } from '../../hooks/useForm';
  */
 export const CreateRecipe = () => {
     const urlBase = import.meta.env.VITE_API_URL_BASE;
-    const editor = useRef(null);
+    // const editor = useRef(null);
 
     const {
         form,
@@ -123,7 +123,7 @@ export const CreateRecipe = () => {
             <div className="mb-3">
                 <label className="form-label">Pasos</label>
                 <JoditEditor
-                    ref={editor}
+                    //ref={editor}
                     value={form.steps}
                     onChange={(newContent) =>
                         setForm((prev) => ({ ...prev, steps: newContent }))

@@ -20,6 +20,7 @@ AuthContext2.jsx
 LoginForm2.jsx
 RegisterForm2.jsx
 jsdoc.json
+docs
 
 # Editor directories and files
 .vscode/*
